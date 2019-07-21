@@ -9,7 +9,7 @@ pipeline {
     }
     parameters {
         string(name: 'VM_NAME', defaultValue: 'NS_UFT', description: 'VM Name for VCenter')
-        string(name: 'ISO_NAME', defaultValue: 'NexentaStor5.2.1.6_CERT.iso', description: 'ISO name for napalm')
+        string(name: 'ISO_NAME', defaultValue: 'NexentaStor5.3.0.10_CERT.iso', description: 'ISO name for napalm')
         string(name: 'USER', defaultValue: 'georgy.malakyan', description: 'Same user for napalm and testrails')
         password(name: 'PASS', defaultValue: 'SECRET', description: 'Same pasword for napalm and testrails user')
     }
@@ -52,8 +52,12 @@ pipeline {
         stage('Deploy and run Cypress tests') {
             steps {
                 node('cypress') {
+                    deleteDir()
+                    git url: 'https://github.com/muirdok/fusion-ci-tests.git'
                     sh '''
-                    echo "Run Cypress against NS Appliance ${NS_IP} and Fusion ${DOCKER_IP}" 
+                    echo "Run Cypress against NS Appliance ${NS_IP} and Fusion ${DOCKER_IP}";
+                    cd fusion_2.0;
+                     /opt/node_modules/cypress/bin/./cypress run;
                     '''
                 }
             }
