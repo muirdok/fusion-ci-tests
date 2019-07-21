@@ -1,0 +1,26 @@
+{
+	"chromeWebSecurity": false,
+	"projectId": "qxtdz7",
+	"integrationFolder": "./cypress/integration",
+	"supportFile": "./cypress/support/commands.js",
+	"testFiles": "**.spec.js",
+	"baseUrl": "https://fusion:8457/#!/",
+	"reporter": "mochawesome",
+	"reporterOptions": {
+		"reportDir": "cypress/results",
+		"overwrite": false,
+		"html": true,
+		"json": true
+	},
+	"viewportWidth": 1200,
+	"viewportHeight": 750,
+	"defaultCommandTimeout": 8000,
+	"video": false,
+	"env": {
+		"FUSION_ADMIN_USER": "admin",
+		"FUSION_PASS": "Nexenta@1",
+		"FUSION_IP": "10.3.199.202",
+		"NS_SINGLE_IP": "10.3.199.189",
+		"NS_SINGLE_NAME": "NS5xS-189"
+	}
+}
