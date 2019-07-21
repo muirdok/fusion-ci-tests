@@ -36,6 +36,16 @@ pipeline {
                 }
             }
         }
+        stage('Clean Fusion images') {
+            steps {
+                node('docker') {
+                    sh '''
+                    echo Kill THEM ALL!;
+                    docker stop $(docker ps -aq) && docker rm $(docker ps -aq)
+                    '''
+                }
+            }
+        }
         stage('Deploy and configure single FUSION host on DOCKER') {
             steps {
                 node('docker') {
@@ -62,15 +72,6 @@ pipeline {
                 }
             }
         }
-        stage('Clean Fusion images') {
-            steps {
-                node('docker') {
-                    sh '''
-                    echo Kill THEM ALL!;
-                    docker stop $(docker ps -aq) && docker rm $(docker ps -aq)
-                    '''
-                }
-            }
-        }
+
     }
 }

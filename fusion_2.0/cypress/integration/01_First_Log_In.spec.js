@@ -33,6 +33,7 @@ var NS_APPLIANCE = Cypress.env("NS_APPLIANCE");
 describe('FusionUI First Login and Change Password', function() {
 
     it('C709423 First Accept URL and login', function() {
+        cy.wait(20000)  //SHOULD REMOVE IT IN FUTURE
         cy.visit('https://'+FUSION_IP+':'+FUSION_PORT)
         cy.get('.button-primary').click()
         cy.get('#username').type(FUSION_ADMIN_USER).should('have.value', FUSION_ADMIN_USER)
