@@ -23,3 +23,32 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('fusion_httpsLogin', function () {
+    sessionStorage.clear();
+    return cy.request({
+        method: "POST",
+        url: 'https://fusion:8443/auth/login', //Need to use port 8443 for HTTPS calls
+        failOnStatusCode: false,
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: {
+            "username": "admin",
+            "password": "Nexenta@1"
+        }
+    })
+        .then((res) => {
+            sessionStorage['ngStorage-jwt'] = JSON.stringify(res.body.token);
+            sessionStorage['ngStorage-user'] = JSON.stringify({
+                "username": "admin",
+                "provider": "localUsers",
+                "name": "admin",
+                "level": "admin",
+                "groups": [],
+                "isGuest": false,
+                "changePassword": false
+            })
+        })
+
+});

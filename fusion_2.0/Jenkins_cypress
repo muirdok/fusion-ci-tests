@@ -57,7 +57,7 @@ pipeline {
                     sh '''
                     echo "Run Cypress against NS Appliance ${NS_IP} and Fusion ${DOCKER_IP}";
                     cd fusion_2.0;
-                     /opt/node_modules/cypress/bin/./cypress run;
+                     /opt/node_modules/cypress/bin/./cypress run --env FUSION_IP=fusion,FUSION_PORT=8457,NS_APPLIANCE=${NS_IP};
                     '''
                 }
             }
