@@ -27,6 +27,7 @@ pipeline {
                                         pxe_iso_name: params.ISO_NAME,
                                         napalm_user: params.USER,
                                         napalm_pass: [value: params.PASS, hidden: true],
+                                        pxe_clean_all: false,
                                 ]
                         )
                         script {
