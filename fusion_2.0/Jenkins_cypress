@@ -55,19 +55,19 @@ pipeline {
                         docker run --name fusion_"${BUILD_NUMBER}" -d \
                         -e MGMT_IP="${DOCKER_IP}" --ulimit nofile=65536:65536 --ulimit memlock=-1:-1 \
                         -e TZ="America/Los_Angeles" --memory=16g -e ES_HEAP_SIZE="8g" -i -t \
-                        -p 8457:8457 -p 9200:9200 -p 8443:8443 -p 2000:2000 nexenta/fusion
+                        -p 8457:8457 -p 9200:9200 -p 8443:8443 -p 2000:2000 nexenta/fusion-dev
                     '''
                 }
             }
         }
-        stage('Deploy and run Cypress tests') {
+        stage('Deploy and run Cypress SMOKE tests') {
             steps {
                 node('cypress') {
                     deleteDir()
                     git url: 'https://github.com/muirdok/fusion-ci-tests.git'
                     sh '''
                     echo "Run Cypress against NS Appliance ${NS_IP} and Fusion ${DOCKER_IP}";
-                    cd fusion_2.0;
+                    cd fusion_2.0/Smoke;
                      /opt/node_modules/cypress/bin/./cypress run --env FUSION_IP=fusion,FUSION_PORT=8457,NS_APPLIANCE=${NS_IP};
                     '''
                 }
