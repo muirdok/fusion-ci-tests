@@ -31,24 +31,25 @@ describe('FusionUI Login', function() {
     });
 
     it('CXXXXXX Add Appliance', function() {
-        cy.get('[data-ng-click="register.showNodeAddressForm()"]').click();
+        cy.contains('You currently have no registered appliances').should("be.visible")
+        cy.contains('Register Appliance').click();
         cy.get('#nodeIp').type(Cypress.env("NS_APPLIANCE"));
-        cy.get('.grid-row > .text-right > .button-primary').click();
-        cy.get('.button-danger').click();
-
-        // Set username\pass etc.
+        cy.contains('Continue').click();
+        // time issue
+        cy.contains('Yes').click();
+        //NS Creds and certificate
         cy.get('#username').type(ADMIN_USER);
         cy.get('#password').type(DEFAULT_NS_PASS);
         cy.get('.indicator').click();
-        cy.get('.grid-row > .text-right > .button-primary').click();
-
-        // Activate appliance when GET GOLDEN KEY
-        cy.get('.img-error-big').should('be.visible');
-        cy.url().should('include','/license-invalid');
-        cy.get('.button-primary').click();
+        cy.contains('Continue').click();
+        // License error
+        cy.contains('License Error').should("be.visible");
+        // License it!
+        cy.contains('Update license').click();
         cy.get('.field-text').type(GOLDEN_KEY);
-        cy.get('.text-right > .button-primary').click();
-        cy.contains('License has been successfully activated')
+        cy.contains('OK').click()
+        // Check it
+        cy.contains('License has been successfully activated').should("be.visible")
 
     });
 

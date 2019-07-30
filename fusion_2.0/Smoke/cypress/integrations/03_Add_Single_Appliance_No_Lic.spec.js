@@ -29,32 +29,34 @@ describe('FusionUI Login', function() {
         cy.get('.button-login').click()
     });
 
-    it('CXXXXXX Add Appliance', function() {
-        cy.get('[data-ng-click="register.showNodeAddressForm()"]').click();
-        cy.get('#nodeIp').type(Cypress.env("NS_APPLIANCE"));
-        cy.get('.grid-row > .text-right > .button-primary').click();
-        cy.get('.button-danger').click()
 
-        // Set username\pass etc.
+    it('CXXXXXX add appliance', function() {
+        cy.contains('You currently have no registered appliances').should("be.visible")
+        cy.contains('Register Appliance').click();
+        cy.get('#nodeIp').type(Cypress.env("NS_APPLIANCE"));
+        cy.contains('Continue').click();
+        // time issue
+        cy.contains('Yes').click();
+        //NS Creds and certificate
         cy.get('#username').type(ADMIN_USER);
         cy.get('#password').type(DEFAULT_NS_PASS);
-        cy.get('.indicator').click()
-        cy.get('.grid-row > .text-right > .button-primary').click()
-
+        cy.get('.indicator').click();
+        cy.contains('Continue').click();
         // License error
-        cy.get('.button-danger').click()
-
-        // Connected NOS Statuses
-        cy.contains('NOS')
-        cy.contains('connected')
+        cy.contains('License Error').should("be.visible");
+        cy.contains('Go to appliance').click();
+        // Checking statuses
+        cy.contains('NOS');
+        cy.contains('connected');
         cy.get('.appliance-license > span').should('contain', "License invalid!");
+        // Unregister appliince
+        cy.get('.button-icon').click();
+        cy.get('.text-error > span').click();
+        cy.get('.button-danger').click();
+        cy.contains('You currently have no registered appliances').should("be.visible")
 
-        //Unregister appliance
-        cy.get('.button-icon').click()
-        cy.get('.text-error > span').click()
-        cy.get('.button-danger').click()
+        //
 
     });
-
 
 });
