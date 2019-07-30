@@ -36,7 +36,7 @@ describe('FusionUI Login', function() {
         cy.get('#nodeIp').type(Cypress.env("NS_APPLIANCE"));
         cy.contains('Continue').click();
         // time issue
-        cy.contains('Yes').click();
+        //cy.contains('Yes').click();
         //NS Creds and certificate
         cy.get('#username').type(ADMIN_USER);
         cy.get('#password').type(DEFAULT_NS_PASS);
