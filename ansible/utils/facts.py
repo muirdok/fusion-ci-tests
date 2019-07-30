@@ -33,20 +33,3 @@ def main(argv):
 if __name__ == "__main__":
    main(sys.argv[1:])
 
-
-#ssl._create_default_https_context = ssl._create_unverified_context
-#
-#vhost = "vcenter.hypernexenta.corp"
-#vuser = "administrator@vsphere.local"
-#vpass = "Nexenta1!"
-#vm    = "TestVM"
-#
-#server = VIServer()
-#server.connect(vhost, vuser, vpass)
-#vm1 = server.get_vm_by_name(vm)
-#
-#print vm1.get_properties().get('ip_address')
-
-#a = json.loads(vm1.get_properties())
-#print a
-
