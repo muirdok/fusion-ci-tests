@@ -6,6 +6,7 @@ pipeline {
 
     environment {
         DOCKER_IP = "10.3.77.120"
+        FUSION_PORT = "8457"
     }
     parameters {
         string(name: 'VM_NAME', defaultValue: 'NS_UFT', description: 'VM Name for VCenter')
