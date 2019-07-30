@@ -12,6 +12,8 @@ pipeline {
         string(name: 'ISO_NAME', defaultValue: 'NexentaStor5.3.0.10_CERT.iso', description: 'ISO name for napalm')
         string(name: 'USER', defaultValue: 'georgy.malakyan', description: 'Same user for napalm and testrails')
         password(name: 'PASS', defaultValue: 'SECRET', description: 'Same pasword for napalm and testrails user')
+        string(name: 'TOKEN', defaultValue: 'XXXX-XXX-XXX-XXXX-XXXX-XXXX', description: 'License token')
+
     }
     stages {
         stage('Deploy and configure 1st single NS Appliance') {
@@ -56,6 +58,7 @@ pipeline {
                         -e MGMT_IP="${DOCKER_IP}" --ulimit nofile=65536:65536 --ulimit memlock=-1:-1 \
                         -e TZ="America/Los_Angeles" --memory=16g -e ES_HEAP_SIZE="8g" -i -t \
                         -p 8457:8457 -p 9200:9200 -p 8443:8443 -p 2000:2000 nexenta/fusion-dev
+                        sleep 15
                     '''
                 }
             }
@@ -68,7 +71,7 @@ pipeline {
                     sh '''
                     echo "Run Cypress against NS Appliance ${NS_IP} and Fusion ${DOCKER_IP}";
                     cd fusion_2.0/Smoke;
-                     /opt/node_modules/cypress/bin/./cypress run --env FUSION_IP=fusion,FUSION_PORT=8457,NS_APPLIANCE=${NS_IP};
+                     /opt/node_modules/cypress/bin/./cypress run --env FUSION_IP=fusion,FUSION_PORT=8457,NS_APPLIANCE=${NS_IP},KEY=${params.TOKEN};
                     '''
                 }
             }

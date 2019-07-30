@@ -17,9 +17,8 @@ Description:		fusion GUI First Login with password changing from default
 **/
 
 var ADMIN_USER = "admin";
+var DEFAULT_NS_PASS = "nexenta";
 var FUSION_PASS = "Nexenta@1";
-var NS_PASS = "fusion";
-
 
 describe('FusionUI Login', function() {
 
@@ -34,11 +33,27 @@ describe('FusionUI Login', function() {
         cy.get('[data-ng-click="register.showNodeAddressForm()"]').click();
         cy.get('#nodeIp').type(Cypress.env("NS_APPLIANCE"));
         cy.get('.grid-row > .text-right > .button-primary').click();
+        cy.get('.button-danger').click()
+
+        // Set username\pass etc.
         cy.get('#username').type(ADMIN_USER);
-        cy.get('#password').type(NS_PASS);
+        cy.get('#password').type(DEFAULT_NS_PASS);
         cy.get('.indicator').click()
         cy.get('.grid-row > .text-right > .button-primary').click()
+
+        // License error
         cy.get('.button-danger').click()
+
+        // Connected NOS Statuses
+        cy.contains('NOS')
+        cy.contains('connected')
+        cy.get('.appliance-license > span').should('contain', "License invalid!");
+
+        //Unregister appliance
+        cy.get('.button-icon').click()
+        cy.get('.text-error > span').click()
+        cy.get('.button-danger').click()
+
     });
 
 

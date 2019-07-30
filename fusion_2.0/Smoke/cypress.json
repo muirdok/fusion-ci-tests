@@ -4,6 +4,7 @@
   "integrationFolder": "./cypress/integrations",
   "supportFile": "./cypress/support/commands.js",
   "testFiles": "**.spec.js",
+  "baseUrl": "https://fusion:8457/#!/",
   "reporterOptions": {
     "reportDir": "cypress/results",
     "overwrite": false,
