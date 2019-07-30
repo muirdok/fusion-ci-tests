@@ -56,13 +56,13 @@ describe('FusionUI First Login and Change Password', function() {
     });
 
 
-    it("Should ping community.nexenta.com is alive and returns status code 200", function () {
+  /*  it("Should ping community.nexenta.com is alive and returns status code 200", function () {
         cy.get(':nth-child(6)').contains("http://community.nexenta.com").request('http://community.nexenta.com').then((response)=>
         {
             expect(response.status).to.eq(200)
         })
 
-    });
+    });*/
 
     it("Should validate About screen expands", function () {
         var i=0;   // click the down arrow key 3 times
@@ -74,13 +74,13 @@ describe('FusionUI First Login and Change Password', function() {
 
     // Verify expanded section of EULA
 
-    it("Should ping nexenta.com is alive and returns status code 200", function () {
+/*    it("Should ping nexenta.com is alive and returns status code 200", function () {
         cy.contains("http://www.nexenta.com/").request("http://www.nexenta.com/").then((response)=>
         {
             expect(response.status).to.eq(200)
         })
 
-    });
+    });*/
 
     it("Should verify expanded section of EULA", function () {
         cy.contains('Nexenta End User License Agreement (EULA')

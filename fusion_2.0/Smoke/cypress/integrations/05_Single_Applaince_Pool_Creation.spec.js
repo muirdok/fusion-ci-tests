@@ -33,7 +33,7 @@ describe('FusionUI Login', function() {
     });
 
     it('CXXXXXX Open appliance and create a Stripe pool KEK', function() {
-        cy.get('.appliance-title-link > span').click();
+        cy.contains('NOS').click();
         cy.contains('Management').click();
         cy.contains('Pools').click();
         cy.get('.button-primary').click();
