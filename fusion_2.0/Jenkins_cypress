@@ -20,8 +20,8 @@ pipeline {
             steps {
                 node('ansible') {
                     deleteDir()
-                    git url: 'https://github.com/muirdok/deploy_ns.git'
-                    dir("${WORKSPACE}") {
+                    git url: 'https://github.com/muirdok/fusion-ci-tests.git'
+                    dir("${WORKSPACE}/ansible") {
                         ansiblePlaybook(
                                 playbook: 'run_me.yml',
                                 extraVars: [
