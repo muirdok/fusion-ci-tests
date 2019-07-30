@@ -1,0 +1,87 @@
+---
+        - name: Random Delay
+          pause:
+            seconds: "{{ config_ci_delay | random }}"
+
+        - name: Create Current Build Folder
+          vcenter_folder:
+            validate_certs: False
+            hostname: "{{ config_vsphere_host }}"
+            username: "{{ config_vsphere_user }}"
+            password: "{{ config_vsphere_password }}"
+            datacenter: "{{ config_vsphere_datacenter }}"
+            parent_folder: "{{ config_vsphere_folder }}"
+            folder_name: "Build_{{ config_ci_build }}"
+            state: "present"
+
+        - name: Destroy Virtual Machine
+          vmware_guest:
+            validate_certs: False
+            hostname: "{{ config_vsphere_host }}"
+            username: "{{ config_vsphere_user }}"
+            password: "{{ config_vsphere_password }}"
+            datacenter: "{{ config_vsphere_datacenter }}"
+            cluster: "{{ config_vsphere_cluster }}"
+            folder: "{{ config_vsphere_datacenter }}/vm/{{ config_vsphere_folder }}/Build_{{ config_ci_build }}"
+            name: "{{ config_vm_name }}"
+            state: "absent"
+            force: yes
+
+        - name: Create Virtual Machine
+          vmware_guest:
+            validate_certs: False
+            hostname: "{{ config_vsphere_host }}"
+            username: "{{ config_vsphere_user }}"
+            password: "{{ config_vsphere_password }}"
+            datacenter: "{{ config_vsphere_datacenter }}"
+            cluster: "{{ config_vsphere_cluster }}"
+            folder: "{{ config_vsphere_datacenter }}/vm/{{ config_vsphere_folder }}/Build_{{ config_ci_build }}"
+            name: "{{ config_vm_name }}"
+            guest_id: "{{ config_vm_guest }}"
+            #esxi_hostname: "esx-16.hypernexenta.corp"
+            disk:
+            - size_gb: 16
+              type: thin
+              datastore: "{{ config_vm_datastore }}"
+            - size_gb: 32
+              type: thin
+              datastore: "{{ config_vm_datastore }}"
+            hardware:
+              memory_mb: 8192
+              num_cpus: 2
+              scsi: paravirtual
+            networks:
+            - name: "{{ config_vm_deploy_net }}"
+              mac: "{{ config_vm_mac1 }}"
+              device_type: vmxnet3
+            - name: "{{ config_vm_lab_net }}"
+              device_type: vmxnet3
+            wait_for_ip_address: True
+            state: "poweredon"
+
+        - name: Get VM IP
+          command: utils/./facts.py -i "{{ config_vsphere_host }}" -u "{{ config_vsphere_user }}" -p "{{ config_vsphere_password }}" -n "{{ config_vm_name }}"
+          register: command_output
+ 
+        - debug: msg="{{command_output.stdout}}"
+
+        - set_fact:
+             vm_ip: "{{ command_output.stdout }}"
+         
+        - copy: content="{{ vm_ip }}" dest=ns_ip
+     
+        - name: Wait for SSH Port to Become Open and Contain "OpenSSH"
+          wait_for:
+            port: 22
+            host: "{{ vm_ip }}"
+            search_regex: "OpenSSH"
+ 
+        - name: Add IP to VMName to inventory 
+          add_host:
+            name: "{{ config_vm_name }}"
+            ansible_ssh_host: "{{ vm_ip }}"
+            ansible_ssh_user: "{{ config_applaince_root }}"
+            ansible_ssh_pass: "{{ config_applaince_root_pass }}"
+            ansible_connection: "ssh"
+            ansible_ssh_private_key_file: "/root/.ssh/id_rsa.pub"
+...

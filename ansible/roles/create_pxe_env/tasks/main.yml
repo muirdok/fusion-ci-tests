@@ -1,0 +1,74 @@
+---
+    - set_fact:
+        config_vm_mac1: "{{ 'AA:BB:DD' | random_mac }}"
+
+    - set_fact:
+        config_vm_mac2: "{{ 'AA:BB:CC' | random_mac }}"
+
+    - set_fact:
+        pxe_path: "{{ pxe_iso_name | replace('.iso','') }}"
+
+    - set_fact:
+        config_vm_mac1_pxe: "{{'01' + config_vm_mac1|upper|replace(':','') }}"
+        register: config_vm_mac1_pxe
+ 
+    - debug:
+        var: config_vm_mac1_pxe
+
+    - name: Get new iso for PXE tasks
+      block:
+      - name: Download new ISO
+        command: "curl --ntlm --negotiate -u {{ napalm_user }}:{{ napalm_pass }} -o /tmp/{{ pxe_iso_name }} -C - -O {{ pxe_iso_repos }}/{{ pxe_iso_name }}"
+      
+      - name: Mount {{ pxe_iso_name }} 
+        mount:
+         path: "/mnt/{{ pxe_path }}"
+         src: "/tmp/{{ pxe_iso_name }}"
+         fstype: iso9660
+         opts: ro,noauto
+         state: mounted
+
+      - name: Copy Files
+        shell: "cd /mnt/{{ pxe_path }} && find . -xdev -depth -print | cpio -pvdm {{ pxe_tftpboot }}/{{ pxe_unpacked_isos }}/{{ pxe_path }}/ 2>&1 > /dev/null"
+
+      - name: Umount  {{ pxe_iso_name }}
+        mount:
+         path: "/mnt/{{ pxe_path }}"
+         state: '{{ item }}'
+        with_items:
+          - unmounted
+          - absent
+
+      - name: Create new  autoinstall.json for "{{ config_vm_mac1_pxe }}"
+        template: src=templates/autoinstall.json dest={{ pxe_tftpboot }}/{{ pxe_unpacked_isos }}/{{ pxe_path }}/autoinstall.json owner=root group=root
+
+      when: pxe_new_iso
+      rescue:
+        - debug:
+            msg: 'Unable to get new iso'
+
+    - name: No need actions for DHCP
+      command: /bin/echo LOL
+
+    - name: Clean All
+      block:
+      - name: Ansible delete file wildcard
+        find:
+          paths: "{{ pxe_tftpboot }}/"
+          patterns: "menu.lst.*"
+        register: wildcard_files_to_delete
+
+      - name: Ansible remove file wildcard
+        file:
+          path: "{{ item.path }}"
+          state: absent
+        with_items: "{{ wildcard_files_to_delete.files }}"
+
+      when: pxe_clean_all
+      rescue:
+        - debug:
+            msg: 'Unable to remove old menu files'
+
+    - name: Create new boot file "{{ pxe_tftpboot }}"/menu.lst for "{{ config_vm_mac1_pxe }}"
+      template: src=templates/menu.lst dest={{ pxe_tftpboot }}/menu.lst.{{ config_vm_mac1_pxe }} owner=root group=root
+

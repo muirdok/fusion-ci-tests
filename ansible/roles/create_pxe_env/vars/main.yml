@@ -1,0 +1,8 @@
+---
+pxe_new_iso: true
+pxe_clean_all: true
+pxe_iso_repos: "https://napalm.nexenta.com/iso-nightly"
+pxe_nfs_server: "192.168.111.1"
+pxe_tftpboot: "/tftpboot"
+pxe_unpacked_isos: "NEF"
+...

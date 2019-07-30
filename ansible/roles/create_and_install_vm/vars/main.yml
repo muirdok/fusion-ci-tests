@@ -1,0 +1,16 @@
+---
+config_applaince_disk: "c"
+
+config_vm_guest: "solaris11_64Guest"
+config_vm_timeout: 30
+config_vm_deploy_net: "10GB"
+config_vm_lab_net: "VM Network"
+config_vm_datastore: "esx-56-data-2"
+
+config_vsphere_host: "vcenter.hypernexenta.corp"
+config_vsphere_user: "administrator@vsphere.local"
+config_vsphere_password: "Nexenta1!"
+config_vsphere_datacenter: "CIFS_Tests"
+config_vsphere_folder: "Win_AD_CRUD"
+config_vsphere_cluster: "HP_Setup"
+...

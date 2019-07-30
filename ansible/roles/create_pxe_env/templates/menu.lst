@@ -1,0 +1,10 @@
+default 0
+timeout 10
+
+title NexentaStor {{ pxe_iso_name }} VM
+kernel {{ pxe_unpacked_isos }}/{{ pxe_path }}/platform/i86pc/kernel/amd64/unix -B iso_nfs_path={{ pxe_nfs_server }}:{{ pxe_tftpboot }}/{{ pxe_unpacked_isos }}/{{ pxe_path }} -B install_profile=autoinstall.json
+module NEF/{{ pxe_path }}/platform/i86pc/amd64/boot_archive
+
+title Boot from Hard Disk
+        rootnoverify (hd1,0)
+        chainloader +1

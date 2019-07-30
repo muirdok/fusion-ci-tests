@@ -1,0 +1,9 @@
+---
+- hosts: localhost
+  gather_facts: no
+  vars_files:
+     - roles/vars/common.yml
+  roles:
+     - { role: create_pxe_env, clean_all: true }
+     - create_and_install_vm
+...

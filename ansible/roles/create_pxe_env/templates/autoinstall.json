@@ -1,0 +1,26 @@
+{
+    "nef": {
+        "node": "atomic"
+    },
+    "networking": {
+        "interfaces": [
+            {
+                "adapter": "vmxnet3s1",
+                "address": "dhcp"
+            }
+        ],
+        "server1": "8.8.8.8"
+    },
+    "storage": {
+        "target": "c*t0d0"
+    },
+    "general": {
+        "nef_security_mode": "open",
+        "nef_optimization_profile": "generic",
+        "admin_pass": "nexenta",
+        "replication_pass": "nexenta",
+        "hostname": "NOS",
+        "timezone": "US/Pacific",
+        "language": "EN"
+    }
+}

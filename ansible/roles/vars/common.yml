@@ -1,0 +1,16 @@
+---
+config_ci_build: "test_build"
+config_ci_delay: 10
+
+pxe_iso_name: "NexentaStor5.1.2_FP1_CP5_CERT.iso"
+napalm_user: "xx"
+napalm_pass: "xx"
+
+config_applaince_root: "root"
+config_applaince_root_pass: "plusultra"
+config_applaince_admin: "admin"
+config_applaince_admin_pass: "nexenta"
+
+config_vm_name: "TestVM"
+config_vm_uuid:  "kek"
+...
