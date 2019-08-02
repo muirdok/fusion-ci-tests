@@ -46,7 +46,7 @@ describe('FusionUI Login', function() {
         cy.contains('Stripe').click();
 
         //Select disk
-        cy.wait(4000)
+        cy.wait(4000);
         cy.get(':nth-child(3) > .disk-item > [data-ng-if="disk.viewMode === \'table\'"] > .disk-item-controls > .disk-item-controls-action').click()
         // Next
         cy.get('.button-primary').click();
@@ -54,7 +54,7 @@ describe('FusionUI Login', function() {
         cy.get(':nth-child(2) > [data-ng-show="vm.appliance.versions.nef.gte(\'5.2.0\') ? vm.pool.log[0].skip : vm.pool.log.skip"]').should("be.visible").click();
         cy.get(':nth-child(2) > [data-ng-show="vm.pool.spare.skip"]').should("be.visible").click();
         cy.get(':nth-child(3) > .button-primary').should("be.visible").click();
-
+        cy.wait(4000);
         cy.contains('kek');
         cy.get(':nth-child(1) > :nth-child(2) > .text-success > :nth-child(1) > .grid-col-18')
             .should("be.visible")
