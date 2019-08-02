@@ -53,9 +53,9 @@ describe('FusionUI Login', function() {
         cy.contains('License Error').should("be.visible");
         // License it!
         cy.contains('Update license').click();
-        cy.get('.field-text').type(Cypress.env("NS_KEY"));
+        cy.get('.field-text').type(Cypress.env("KEY"));
         cy.contains('OK').click();
         // Check it
-        cy.contains('License has been successfully activated').should("be.visible")1
+        cy.contains('License has been successfully activated').should("be.visible")
     })
 });
