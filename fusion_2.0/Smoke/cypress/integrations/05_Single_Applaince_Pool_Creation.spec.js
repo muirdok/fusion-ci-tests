@@ -32,7 +32,7 @@ describe('FusionUI Login', function() {
         cy.contains('connected').should("be.visible")
     });
 
-    it('CXXXXXX Open appliance and create a Stripe pool KEK', function() {
+    it('CXXXXXX Open appliance and create a sripe pool "kek"', function() {
         cy.contains('NOS').click();
         cy.contains('Management').click();
         cy.contains('Pools').click();
@@ -44,7 +44,9 @@ describe('FusionUI Login', function() {
         cy.get('.button-danger').should("be.visible").click();
         cy.contains('Select redundancy').click();
         cy.contains('Stripe').click();
+
         //Select disk
+        cy.wait(4000)
         cy.get(':nth-child(3) > .disk-item > [data-ng-if="disk.viewMode === \'table\'"] > .disk-item-controls > .disk-item-controls-action').click()
         // Next
         cy.get('.button-primary').click();
