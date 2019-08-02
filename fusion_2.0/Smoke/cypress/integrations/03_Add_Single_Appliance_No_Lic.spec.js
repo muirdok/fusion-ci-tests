@@ -14,7 +14,7 @@ describe('FusionUI Login', function() {
     });
 
     it('CXXXXXX Add appliance without license', function() {
-        cy.contains('You currently have no registered appliances').should("be.visible")
+        cy.contains('You currently have no registered appliances').should("be.visible");
         cy.contains('Register Appliance').click();
         cy.get('#nodeIp').type(Cypress.env("NS_APPLIANCE"));
         cy.contains('Continue').click();
@@ -35,10 +35,10 @@ describe('FusionUI Login', function() {
         cy.get('.text-error > span').click();
         cy.get('.button-danger').click();
         cy.contains('You currently have no registered appliances').should("be.visible")
-    })
+    });
 
     it('CXXXXXX Add appliance and license it', function() {
-        cy.contains('You currently have no registered appliances').should("be.visible")
+        cy.contains('You currently have no registered appliances').should("be.visible");
         cy.contains('Register Appliance').click();
         cy.get('#nodeIp').type(Cypress.env("NS_APPLIANCE"));
         cy.contains('Continue').click();
