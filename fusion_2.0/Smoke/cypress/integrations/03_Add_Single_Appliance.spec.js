@@ -2,7 +2,7 @@
  Author:  		Georgy Malakyan
  Date: 			07/23/2019
  Purpose:		Verifies the fusion first GUI login
- Script Name:	02_Fusion_Interfaces.spec.js
+ Script Name:	03_Add_Single_Appliance.spec.js
 
  Needed vars is described cypress.json
  **/
@@ -13,7 +13,7 @@ describe('FusionUI Login', function() {
         cy.login()
     });
 
-    it('CXXXXXX Add appliance without license', function() {
+    it('C756036 Add appliance without license', function() {
         cy.contains('You currently have no registered appliances').should("be.visible");
         cy.contains('Register Appliance').click();
         cy.get('#nodeIp').type(Cypress.env("NS_APPLIANCE"));
@@ -37,7 +37,7 @@ describe('FusionUI Login', function() {
         cy.contains('You currently have no registered appliances').should("be.visible")
     });
 
-    it('CXXXXXX Add appliance and license it', function() {
+    it('C756037 Add appliance and license it', function() {
         cy.contains('You currently have no registered appliances').should("be.visible");
         cy.contains('Register Appliance').click();
         cy.get('#nodeIp').type(Cypress.env("NS_APPLIANCE"));

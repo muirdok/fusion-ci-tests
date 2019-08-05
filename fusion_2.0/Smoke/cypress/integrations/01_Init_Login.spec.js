@@ -12,7 +12,7 @@ describe('FusionUI check, first login and change password', function() {
       cy.visit('')
     });
 
-    it('CXXXXXX First login redirect to EULA. EULA is OK and could be accepted', function () {
+    it('C689659 First login redirect to EULA. EULA is OK and could be accepted', function () {
         cy.url().should('include', '#!/eula');
         cy.get('.img-login-logo').should("be.visible");
         cy.contains("Nexenta Fusion").should("be.visible");
@@ -20,7 +20,7 @@ describe('FusionUI check, first login and change password', function() {
         cy.contains('Accept').should('not.be.disabled')
     });
 
-    it('CXXXXXX Accept EULA and check login', function () {
+    it('C689660 Accept EULA and check login', function () {
         cy.wait(2000);
         cy.get('.login-container').scrollTo('bottom');
         cy.contains('Accept').click();
@@ -29,7 +29,7 @@ describe('FusionUI check, first login and change password', function() {
         cy.contains("Nexenta Fusion").should("be.visible");
     });
 
-    it('CXXXXXX Change default password and logout', function () {
+    it('C689661 Change default password and logout', function () {
         cy.contains('Login').should('be.disabled');
         cy.get('#username').type(Cypress.env("FUSION_ADMIN_USER")).should('have.value', Cypress.env("FUSION_ADMIN_USER"));
         cy.get('#password').type(Cypress.env("FUSION_DEFAULT_PASS"));
@@ -48,7 +48,7 @@ describe('FusionUI check, first login and change password', function() {
         cy.url().should('include', '#!/logout');
     });
 
-    it('CXXXXXX Login and Logout', function () {
+    it('C689662 Login and Logout', function () {
         cy.get('.img-login-logo').should("be.visible");
         cy.contains("Nexenta Fusion").should("be.visible");
         cy.get('#username').type(Cypress.env("FUSION_ADMIN_USER")).should('have.value', Cypress.env("FUSION_ADMIN_USER"));

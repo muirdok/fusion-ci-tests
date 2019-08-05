@@ -13,7 +13,7 @@ describe('FusionUI Login', function() {
         cy.login()
     });
 
-    it('CXXXXXX Login to fusion with added NS appliance', function() {
+    it('C756040 Test me', function() {
     cy.get('body').wait(2000).then(($body)=> {
         if($body.text().includes(Cypress.env("NS_ADMIN_USER"))){
             cy.get('.appliance-title-link').contains(Cypress.env("NS_HOSTNAME")).click()

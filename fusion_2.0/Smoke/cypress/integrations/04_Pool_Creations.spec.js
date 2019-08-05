@@ -2,7 +2,7 @@
  Author:  		Georgy Malakyan
  Date: 			07/23/2019
  Purpose:		Verifies the fusion first GUI login
- Script Name:	02_Fusion_Interfaces.spec.js
+ Script Name:	04_Pool_Creations.spec.js
 
  Needed vars is described cypress.json
  **/
@@ -13,7 +13,7 @@ var FUSION_PASS = "Nexenta@1";
 
 describe('FusionUI Login', function() {
 
-    it('CXXXXXX Login to fusion with added NS appliance', function() {
+    it('C756038 Login to fusion with added NS appliance', function() {
         cy.visit('https://'+Cypress.env("FUSION_IP")+':'+Cypress.env("FUSION_PORT"))
         cy.get('#username').type(ADMIN_USER).should('have.value', ADMIN_USER);
         cy.get('#password').type(FUSION_PASS);
@@ -23,7 +23,7 @@ describe('FusionUI Login', function() {
         cy.contains('connected').should("be.visible")
     });
 
-    it('CXXXXXX Open appliance and create a sripe pool "kek"', function() {
+    it('C756039 Open appliance and create a stripe pool "kek"', function() {
         cy.contains('NOS').click();
         cy.contains('Management').click();
         cy.contains('Pools').click();

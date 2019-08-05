@@ -13,7 +13,7 @@ describe('FusionUI Default interfaces', function() {
         cy.login()
     });
 
-    it('CXXXXXX Check fusion default interfaces', function() {
+    it('C756031 Check fusion default interfaces', function() {
 
         //Check appliances pages
         cy.url().should('include','/list')
@@ -32,11 +32,11 @@ describe('FusionUI Default interfaces', function() {
         cy.url().should('include','/list')
     });
 
-    it("Should validate the main menu cog wheel", function () {
+    it("C756032 Should validate the main menu cog wheel", function () {
         cy.get('.site-nav-settings').click({force:true})
     });
 
-    it("Should validate the first section of About screen", function () {
+    it("C756033 Should validate the first section of About screen", function () {
         cy.get('.site-nav-child-item').eq(0).contains('About Fusion').click()
         cy.get('.modal-title').contains('About NexentaFusion')
         cy.contains('NexentaFusion Version 2.0.0.dev')
@@ -45,7 +45,7 @@ describe('FusionUI Default interfaces', function() {
 
     });
 
-    it("Should validate About screen expands", function () {
+    it("C756034 Should validate About screen expands", function () {
         var i=0;   // click the down arrow key 3 times
         for (i=0; i < 3 ; i++) {
             cy.get('.button-icon').eq(1).click()
@@ -53,7 +53,7 @@ describe('FusionUI Default interfaces', function() {
 
     });
 
-    it("Should verify expanded section of EULA", function () {
+    it("C756035 Should verify expanded section of EULA", function () {
         cy.contains('Nexenta End User License Agreement (EULA')
         cy.contains('Last updated: April 26, 2018')
         cy.contains('Nexenta End User License Agreement © 2013 – 2018 Nexenta Systems, Inc. All rights reserved. Nexenta is a registered trademark of Nexenta Systems, Inc. in the US and other countries')
